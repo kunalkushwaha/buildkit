@@ -15,6 +15,20 @@ service Control {
 	rpc Solve(SolveRequest) returns (SolveResponse);
 	rpc Status(StatusRequest) returns (stream StatusResponse);
 	rpc Session(stream BytesMessage) returns (stream BytesMessage);
+	rpc Prune(PruneRequest) returns (PruneResponse);
+}
+
+message PruneRequest {
+	string filter = 1;
+}
+
+message PruneResponse {
+	repeated CacheRecord record = 1; 
+}
+
+message CacheRecord {
+	string ID = 1;
+	int64 Size = 2;
 }
 
 message DiskUsageRequest {

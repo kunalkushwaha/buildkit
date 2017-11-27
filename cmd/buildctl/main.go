@@ -37,6 +37,7 @@ func main() {
 		diskUsageCommand,
 		buildCommand,
 		debugCommand,
+		pruneCommand,
 	}
 
 	app.Before = func(context *cli.Context) error {

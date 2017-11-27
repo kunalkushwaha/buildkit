@@ -206,3 +206,10 @@ func (c *Controller) Session(stream controlapi.Control_SessionServer) error {
 	logrus.Debugf("session finished: %v", err)
 	return err
 }
+
+func (c *Controller) Prune(ctx context.Context, r *controlapi.PruneRequest) (*controlapi.PruneResponse, error) {
+	logrus.Debugf("prune started")
+	_, err := c.opt.CacheManager.Prune(ctx)
+	logrus.Debugf("session finished: %v", err)
+	return nil, err
+}
