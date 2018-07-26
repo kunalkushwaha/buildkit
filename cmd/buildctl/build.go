@@ -113,7 +113,12 @@ func openTraceFile(clicontext *cli.Context) (*os.File, error) {
 func build(clicontext *cli.Context) error {
 	c, err := resolveClient(clicontext)
 	if err != nil {
-		return err
+		//TODO: Invoke check and start the daemon.
+		//If addr is default
+		//	- TryStartDaemon()
+		if err = startBuildkitDaemon(clicontext); err != nil {
+			return err
+		}
 	}
 
 	traceFile, err := openTraceFile(clicontext)
@@ -327,4 +332,26 @@ func resolveExporterOutput(exporter, output string) (io.WriteCloser, string, err
 		}
 		return nil, "", nil
 	}
+}
+
+func startBuildkitDaemon(clicontext *cli.Context) error {
+	//If there are enough permissions
+	//	- daemon will start on background and user command executes.
+	//  - A log message will be shown about it.
+	// NOTE: the user shouldn't even notice it except for a small delay.
+
+	//TODO: check permission
+	//	- sudo , root permission?
+	//	- access to (root) /var/lib/buildkit path?
+	if os.Geteuid() != 0 {
+		return errors.Errorf("root permission required to start background process")
+	}
+
+	// The daemon continues running after the user command has finished.
+	// If the daemon doesn't come up(or no workers can be started), then an error will be shown.
+
+	// Else : If there are NOT enough permissions,
+	// buildctl will show a helpful message explaining that daemon needs to be started
+	// and the command that user needs to run to do it.
+	return nil
 }
