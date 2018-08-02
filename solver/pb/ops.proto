@@ -18,6 +18,7 @@ message Op {
 	}
 	Platform platform = 10;
 	WorkerConstraints constraints = 11;
+	EntitlementList entitlements = 12;
 }
 
 // Platform is github.com/opencontainers/image-spec/specs-go/v1.Platform
@@ -180,4 +181,12 @@ message Definition {
 	// metadata contains metadata for the each of the Op messages.
 	// A key must be an LLB op digest string. Currently, empty string is not expected as a key, but it may change in the future.
 	map<string, OpMetadata> metadata = 2 [(gogoproto.castkey) = "github.com/opencontainers/go-digest.Digest", (gogoproto.nullable) = false];
+}
+
+message EntitlementList {
+	repeated Entitlement entitlement = 1;
+}
+
+message Entitlement {
+	string profile = 1;
 }

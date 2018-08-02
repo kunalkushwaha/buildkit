@@ -59,7 +59,7 @@ message SolveRequest {
 	map<string, string> FrontendOpt = 3;
 	repeated string ImportCacheRefs = 4;
 	bool allowResultReturn = 5;
-	
+	pb.EntitlementList Entitlements = 6;
 	// apicaps.CapSolveInlineReturn deprecated
 	bool Final = 10;
 	bytes ExporterAttr = 11;

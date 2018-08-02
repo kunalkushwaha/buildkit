@@ -57,6 +57,7 @@ message SolveRequest {
 	string Frontend = 6;
 	map<string, string> FrontendAttrs = 7;
 	CacheOptions Cache = 8 [(gogoproto.nullable) = false];
+	pb.EntitlementList Entilements = 9;
 }
 
 message CacheOptions {
