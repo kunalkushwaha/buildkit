@@ -392,6 +392,7 @@ type Constraints struct {
 	WorkerConstraints []string
 	Metadata          pb.OpMetadata
 	LocalUniqueID     string
+	Entitlements      pb.Entitlements
 }
 
 func Platform(p specs.Platform) ConstraintsOpt {

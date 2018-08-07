@@ -73,7 +73,7 @@ func (b *llbBridge) Solve(ctx context.Context, req frontend.SolveRequest) (res *
 	}
 
 	if req.Definition != nil && req.Definition.Def != nil {
-		edge, err := Load(req.Definition, WithCacheSources(cms), RuntimePlatforms(b.platforms), WithValidateCaps())
+		edge, err := Load(req.Definition, WithCacheSources(cms), RuntimePlatforms(b.platforms), WithValidateCaps(), WithValidEntitlements(req.Entitlements))
 		if err != nil {
 			return nil, err
 		}

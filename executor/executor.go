@@ -15,6 +15,7 @@ type Meta struct {
 	Tty            bool
 	ReadonlyRootFS bool
 	// DisableNetworking bool
+	Entitlements []string
 }
 
 type Mount struct {

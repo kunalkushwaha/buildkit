@@ -76,6 +76,10 @@ var buildCommand = cli.Command{
 			Name:  "secret",
 			Usage: "Secret value exposed to the build. Format id=secretname,src=filepath",
 		},
+		cli.StringSliceFlag{
+			Name:  "entitlements",
+			Usage: "Entitlement values for image builder",
+		},
 	},
 }
 
@@ -154,6 +158,7 @@ func build(clicontext *cli.Context) error {
 		// FrontendAttrs is set later
 		ExportCache: clicontext.String("export-cache"),
 		ImportCache: clicontext.StringSlice("import-cache"),
+		Entitlements: clicontext.StringSlice("entitlements")
 		Session:     attachable,
 	}
 	solveOpt.ExporterAttrs, err = attrMap(clicontext.StringSlice("exporter-opt"))

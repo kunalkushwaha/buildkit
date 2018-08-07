@@ -42,6 +42,19 @@ func (v *vertex) Name() string {
 
 type LoadOpt func(*pb.Op, *pb.OpMetadata, *solver.VertexOptions) error
 
+func WithValidEntitlements(ents pb.Entitlements) LoadOpt {
+	for _, ent := range ents {
+		switch ent {
+		case "security.confined":
+		case "security.unconfined":
+		case "network.none":
+			return nil
+		default:
+			return errors.Errorf("entitlement not supported : %s", ent)
+		}
+	}
+}
+
 func WithValidateCaps() LoadOpt {
 	cs := pb.Caps.CapSet(pb.Caps.All())
 	return func(_ *pb.Op, md *pb.OpMetadata, opt *solver.VertexOptions) error {
