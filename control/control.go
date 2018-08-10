@@ -202,12 +202,11 @@ func (c *Controller) Solve(ctx context.Context, req *controlapi.SolveRequest) (*
 		Definition:      req.Definition,
 		FrontendOpt:     req.FrontendAttrs,
 		ImportCacheRefs: importCacheRefs,
-		Entitlements:    req.Entitlements,
 	}, llbsolver.ExporterRequest{
 		Exporter:        expi,
 		CacheExporter:   cacheExporter,
 		CacheExportMode: parseCacheExporterOpt(req.Cache.ExportAttrs),
-	})
+	}, req.Entitlements)
 	if err != nil {
 		return nil, err
 	}
